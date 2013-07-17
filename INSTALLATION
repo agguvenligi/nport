@@ -7,6 +7,7 @@ post_max_size = 16M
 upload_max_filesize = 16M
 memory_limit = 1024M
 #deactivated error_log
+include_path = ".:/usr/share/php:/usr/share/pear:/var/www/nport:/var/www/nport/content:/var/www/nport/db:/var/www/nport/log:/var/www/nport/model:/var/www/nport/scanner:/var/www/nport/utility:/var/www/nport/view"
 
 SETUP
 -----
