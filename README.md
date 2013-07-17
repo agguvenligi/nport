@@ -15,4 +15,4 @@ NPort is an attempt to handle critical port views of big networks. If you are le
     automatic credential brute forcing of the open ports of a given ip address,
     and not the least graphically present results to your eager-to-see-pictures management. ;) 
     
-[![ScreenShot](https://raw.github.com/agguvenligi/nport/master/content/screenshot.png)]
+![ScreenShot](https://raw.github.com/agguvenligi/nport/master/content/screenshot.png)
