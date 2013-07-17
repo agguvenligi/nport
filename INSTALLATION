@@ -1,0 +1,78 @@
+PHP
+---
+In php.ini:
+
+max_execution_time = 900
+post_max_size = 16M
+upload_max_filesize = 16M
+memory_limit = 1024M
+#deactivated error_log
+
+SETUP
+-----
+
+1. give write permission to Apache user for the directory listed in config.php $nmapOutputDirectory
+2. give write permission to Apache user for the directory listed in config.php $errorLog
+3. determine the nmap executable path, or just "nmap" in config.php $nmap
+4. determine focused ports in config.php $ports_analyzed
+5. determine db credentials in config.php $db*
+6. determine who can do administrative operations in NPort, like importing, scanning etc. in config.php $authenticIPs
+7. determine who can connect to NPort in Apache Location directive. Example;
+       <Directory /var/www/>
+                Options -Indexes
+                AllowOverride None
+                Order allow,deny
+                allow from ip1 ip2 ip3
+        </Directory>
+8. remove all the unnecessary files from www root directory, like readme, sql, etc.
+9. install php5-curl.
+    9.1 In Backtrack on amd64:  wget http://launchpadlibrarian.net/92790596/php5-curl_5.3.2-1ubuntu4.14_amd64.deb
+    9.2 dpkg -i php5-curl_5.3.2-1ubuntu4.14_amd64.deb
+    9.3 service apache2 restart
+
+    or just
+    9.1 wget http://launchpadlibrarian.net/92790705/php5-curl_5.3.2-1ubuntu4.14_i386.deb
+    9.2 php5-curl_5.3.2-1ubuntu4.14_i386.deb
+    9.3 service apache2 restart
+
+    or just    
+    9.1 sudo apt-get install php5-curl
+10. apt-get install hydra, upgrade it to 7.3
+11. apt-get install php-htmlpurifier
+12. Lastly, never user --open argument in nmap runs, since it won't include closed ports, which will affect NPort port status update!
+
+SUDOER
+------
+
+vim /etc/sudoers
+
+  www-data  ALL= NOPASSWD: /bin/kill, /usr/local/bin/nmap, /bin/ps, /usr/local/bin/hydra
+
+SCHEDULE NMAP/HYDRA SCANNING AND PROCESSING
+-------------------------------------
+
+/var/www/nport = nport application directory in wwwroot, contains all php file structure
+/var/nport/nmapoutput = nmap output directory
+/var/nport/hydraoutput = hydra output directory, this also includes usernames.txt and passwords.txt, that should contain your values during dictionary attacks.
+/var/www/nport/nmap.sh contains the target path to ip list that will be feed to nmap periodically, default to /root/ip_block
+
+> crontab -e
+# m h  dom mon dow   command
+01 10 * * TUE /var/www/nport/scanner/nmap.sh > /var/nport/nmapoutput/scheduledprocess_log.txt 2>&1
+
+CONFIGURATION
+-------------
+/var/www/nport/config.php contains directory names (verify their existence) and other configurational items
+
+NESSUS - TODO
+-------------
+
+1. apt-get install nessus
+OR
+2.  http://downloads.nessus.org/nessus3dl.php?file=Nessus-5.0.1-ubuntu1010_amd64.deb&licence_accept=yes&t=98f6ce99946c17be9d61e6c818f86505
+3. # which nessus
+/usr/local/bin/nessus
+4. /usr/local/bin/nessus-fetch --register 057A-FDEA-054C-DD75-B234
+5. service nessusd stop
+6. vi /etc/init.d/nessusd  (to listen only on 127.0.0.1)
+   /opt/nessus/sbin/nessus-service -D -a 127.0.0.1 --ipv4-only
