@@ -84,7 +84,7 @@
                     <td><a style="font-size:16px;padding:5px;" href="javascript:navigate('prev')">Prev</a></td>
                     <td>
                         <iframe style="width:800px;height:600px;border:1px solid black;" 
-                                src="webpagefetcher.php?id=<?php echo $currentIP->getId() ?>&port=<?php echo $portNumber ?>">
+                                src="../utility/webpagefetcher.php?id=<?php echo $currentIP->getId() ?>&port=<?php echo $portNumber ?>">
                         </iframe>
                     </td>
                     <td><a style="font-size:16px;padding:5px;" href="javascript:navigate('next')">Next</a></td>
