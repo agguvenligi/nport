@@ -13,6 +13,6 @@ NPort is an attempt to handle critical port views of big networks. If you are le
     search existing results given ip ranges,
     blazing fast initial web analysis by web page slider,
     automatic credential brute forcing of the open ports of a given ip address,
-    and not the least graphically present results to your eager-to-see-pictures management. ;) 
+    and not the least graphically present results to your eager-to-see-pictures management. :) 
     
 ![ScreenShot](https://raw.github.com/agguvenligi/nport/master/content/screenshot.png)
